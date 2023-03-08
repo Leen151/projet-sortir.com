@@ -1,0 +1,117 @@
+.liste-container{
+    margin: 10px 10px 10px 10px;
+    background-color: rgba(237, 238, 241, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+H1 {
+    text-align: left;
+}
+
+/*****Partie Filtre****/
+/**********************/
+
+.filtre-container{
+    font-size: 90%;
+}
+.filtre-container input, .filtre-container select{
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px 0;
+}
+.filtre-container label{
+    display: inline-block;
+    margin-right: 5px;
+    padding: 3px 0;
+}
+
+.filtres{
+    display: flex;
+    flex-direction: column;
+}
+
+.filtre1 {
+    float: left;
+    /*width: 25%;*/
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding-right: 25px;
+    margin-right: 25Px;
+    display: flex;
+    border-right: 2px #595959 solid;
+}
+
+.check {
+    float: left;
+    /*width: 75%;*/
+    margin-top: 6px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+
+
+
+/*****Partie tableau****/
+/***********************/
+
+table {
+    width: 100%;
+    padding: 10px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.tableau thead th {
+    top: 0;
+    background-color: #333;
+    color: #e6e7e8;
+    font-size: 15px;
+    height: 100%;
+}
+
+th, td {
+
+    border-bottom: 1px solid #dddddd;
+    padding: 5px;
+    font-size: 14px;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(165, 191, 223, 0.9);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(165, 191, 223, 0.7);
+}
+
+tr:hover td {
+    color: #2a4589;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tableau a:link {
+    color: #0d4d17;
+}
+
+td img{
+    width: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .colonne-responsive {
+        display: none
+    }
+    .filtre-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .filtre1{
+        padding-right: 0;
+        margin-right: 0;
+        border-right: none;
+    }
+}
+

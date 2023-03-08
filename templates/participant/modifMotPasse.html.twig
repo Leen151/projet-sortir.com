@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block background %}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Modification Profil
+{% endblock %}
+
+{% block body %}
+
+    <div class="form-container">
+        <h2>Modifier votre mot de passe</h2>
+        {{ form_start(passwordForm) }}
+        {{ form_row(passwordForm.ancien_motPasse) }}
+        <br>
+        {{ form_row(passwordForm.nouveau_motPasse) }}
+        {{ form_errors(passwordForm) }}
+
+        <button name="btnModifier">Modifier</button>
+        {{ form_end(passwordForm) }}
+    </div>
+{% endblock %}
+

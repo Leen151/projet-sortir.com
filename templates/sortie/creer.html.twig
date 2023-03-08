@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Créer une sortie
+{% endblock %}
+
+{% block background %}
+    <style>
+        body {
+            background: url("../public/images/background2.png") no-repeat center fixed;
+            background-size: cover;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="form-container">
+    <div class="form">
+
+        <h1>Créer une sortie</h1>
+        {# afficher le formulaire de creation #}
+        {{ form_start(sortieForm) }}
+
+        {{ form_row(sortieForm.nom) }}
+        {{ form_row(sortieForm.dateHeureDebut) }}
+        {{ form_row(sortieForm.dateLimiteInscription) }}
+        {{ form_row(sortieForm.nbInscriptionMax) }}
+        {{ form_row(sortieForm.duree) }}
+        {{ form_row(sortieForm.infosSortie) }}
+
+        {{ form_row(sortieForm.campus) }}
+        {{ form_row(sortieForm.ville) }}
+        {{ form_row(sortieForm.lieu) }}
+
+        <div class="btn-form">
+        {{ form_row(sortieForm.btnCreee) }}
+        {{ form_row(sortieForm.btnOuverte) }}
+        </div>
+
+        {{ form_end(sortieForm) }}
+    </div>
+</div>
+{% endblock %}

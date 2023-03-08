@@ -1,0 +1,32 @@
+<nav class="navbar">
+    <a href="{{path('main_index')}}"><img src="{{asset('images/logo.png') }}" alt="logo"></a>
+
+    <div class="navbar-links">
+        <ul>
+            <li class="item"><a href="{{path('main_index')}}">Accueil</a></li>
+            {% if app.user%}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="item"><a href="{{ path('app_register')}}">Ajouter un nouvel utilisateur</a></li>
+                {% endif %}
+                <li class="item"><a href="{{ path('sorties_liste') }}">Sorties en cours</a></li>
+                <li class="item"><a href="{{ path('sortie_creer')}}">Créer une sortie</a></li>
+                <li class="item"><a href="{{ path('participant_profil', {'id':app.user.id}) }}">Profil</a></li>
+                <li class="btn-Log"><a href="{{ path('app_logout')}}" title="Logout">Logout ({{ app.user.pseudo }})</a></li>
+            {% else %}
+                <li class="btn-Log"><a href="{{ path('app_login')}}">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <img src="{{asset('images/menuhamburger.png') }}" alt="menu hamburger" class="menu-hamburger">
+
+</nav>
+
+<script>
+    const menuHamburger = document.querySelector(".menu-hamburger")
+    const navLinks = document.querySelector(".navbar-links")
+
+    menuHamburger.addEventListener('click',()=>{
+        navLinks.classList.toggle('mobile-menu')
+    })
+</script>

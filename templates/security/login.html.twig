@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+
+
+        <section class="form-container form-login">
+            <div class="form">
+                <div class="form-content">
+
+                    <h1>Login</h1>
+
+                    <form action="#">
+                        <div class="field input-field">
+                            <input type="text" value="{{ last_username }}" name="email" placeholder="Pseudo ou Email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+                        </div>
+
+                        <div class="field input-field">
+                            <input type="password" name="password" placeholder="Password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="btn btn-lg btn-primary" type="submit">Login</button>
+                        <label>
+                            <input type="checkbox" name="_remember_me"/>
+                            Keep me logged in
+                        </label>
+{#                        <div class="form-link">#}
+{#                            <span>Already have an account ?<a href="{{ path('app_register') }}" class="signup-link"> Signup</a></span>#}
+{#                        </div>#}
+                    </form>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

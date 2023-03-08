@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block background %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="form-container">
+        <div class="sortie-detail">
+            <h2>Détails de la sortie</h2>
+
+            {% if sortie.etat.libelle == 'Annulée' %}
+                <div style="color: darkred; font-weight: bold">Statut : {{ sortie.etat.libelle }}</div>
+                <div class="motifAnnulation">
+                    Motif d'annulation : {{ sortie.motifAnnulation }}
+                    <br><br>
+                </div>
+            {% else %}
+                <div>Statut : {{ sortie.etat.libelle }}</div>
+            {% endif %}
+
+            <div>Organisateur : <a href="{{ path('participant_profil', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></div>
+
+            <br>
+            <div>Nom de la sortie : {{ sortie.nom }}</div>
+            <div>Description : {{ sortie.infosSortie }}</div>
+            <br>
+            <div>Date et heure de la sortie : le {{ sortie.dateHeureDebut | date ('d/m/Y H\\hi')}}</div>
+            <div>Date limite d'inscription : le {{ sortie.dateLimiteInscription|format_date(locale='fr') }}</div>
+            <div>Nombre de places : {{ sortie.nbInscriptionMax }}</div>
+            <div>Durée : {{ sortie.duree }} minutes</div>
+
+            <div>Campus : {{ sortie.campus.nom }}</div>
+            <div>Lieu : {{ sortie.lieu.nom }}</div>
+            <div>Rue : {{ sortie.lieu.rue }}</div>
+            <div>Code postal : {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</div>
+
+
+            <br>
+            <div>
+                <h4>Liste des participants inscrits:</h4>
+
+                <table class="liste_participant-detail">
+                    <thead>
+                        <tr><th>Pseudo</th><th>Nom</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for participant in sortie.participants %}
+                        <tr>
+                            <td><a href="{{ path('participant_profil', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+                            <td>{{ participant.prenom }} {{ participant.nom }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="btn-detail" >
+                {% if app.user in sortie.participants %}
+                    <button><a href="{{ path('sortie_desinscriptionparticipant', {'id': sortie.id}) }}">Se désinscrire</a></button>
+                {% elseif sortie.etat.libelle == 'Ouverte'%}
+                    <button><a href="{{ path('sortie_inscriptionparticipant', {'id': sortie.id}) }}">S'inscrire</a></button>
+                {% endif %}
+
+                {% if (sortie.organisateur is same as app.user) and (sortie.etat.libelle == 'Créée') %}
+                    <button><a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a></button>
+                    <button><a href="{{ path('sortie_supprimer', {'id': sortie.id}) }}">Supprimer</a></button>
+                {% endif %}
+                {# annulation si (sortie créée ou ouverte) et si (organisateur ou admin) #}
+                {% if ((is_granted("ROLE_ADMIN")) or (sortie.organisateur is same as app.user)) and ((sortie.etat.libelle == 'Ouverte') or (sortie.etat.libelle == 'Clôturée')) %}
+                    <button><a href="{{ path('sortie_annulation', {'id': sortie.id}) }}" title="annuler la sortie">Annuler</a></button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block title %}
+    {{ sortie.nom }} | détails
+{% endblock %}
+

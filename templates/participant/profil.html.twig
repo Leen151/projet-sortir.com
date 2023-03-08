@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Profil | {{ participant.pseudo }}
+{% endblock %}
+
+ {% block background %}
+{#     <style>#}
+{#         body {#}
+{#             background: url("../public/images/background1.png") no-repeat center fixed;#}
+{#             background-size: cover;#}
+{#         }#}
+{#     </style>#}
+ {% endblock %}
+
+
+{% block body %}
+    {% if app.user%}
+    <div class="form-container">
+            <div >
+                {% if participant is same as (app.user)%}
+                    <h2>Hello {{ app.user.pseudo }}</h2>
+                {% else %}
+                    <h2>Profil de {{ participant.pseudo }}</h2>
+                {% endif %}
+                <p>Pseudo : {{ participant.pseudo }}</p>
+                <p>Prénom : {{ participant.prenom }}</p>
+                <p>Nom : {{ participant.nom }}</p>
+                <p>E-mail : {{ participant.email }}</p>
+                <p>Numéro de téléphone : {{ participant.telephone }}</p>
+                <p>Campus : {{ participant.campus.nom }}</p>
+            </div>
+            <div class="btn-form">
+                {% if participant is same as (app.user)%}
+                    <button><a href="{{ path('participant_modifier')}}" title="ModifProfil">Modifier le profil</a></button>
+                    <button><a href="{{ path('participant_modificationMotPasse')}}" title="ModifMotPasse">Modifier le mot de passe</a></button>
+                {% endif %}
+            </div>
+
+    </div>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+

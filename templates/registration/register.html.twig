@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortir : Ajouter un nouvel utilisateur{% endblock %}
+
+        {% block background %}
+            <style>
+                body {
+                    background: url("../public/images/background3.png") no-repeat center fixed;
+                    background-size: cover;
+                }
+            </style>
+        {% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <div >
+        <h2>Ajouter un nouvel utilisateur</h2>
+
+        {{ form_start(registrationForm) }}
+
+         {{form_widget(registrationForm)}}
+
+            <button type="submit" class="btn">Register</button>
+        {{ form_end(registrationForm) }}
+    </div>
+    <img src="">
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,70 @@
+input, textarea, select{
+    border: 1px #595959 solid;
+}
+
+.form-container{
+    padding: 10px;
+    margin: 25px auto;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 10px 10px 15px rgba(37, 37, 37, 0.6);
+    border-radius: 10px;
+    flex-direction: column;
+    text-align: left;
+}
+.form-login{
+    max-width: 300px;
+}
+.form-login h1{
+    text-align: center;
+}
+
+.form-container button,
+#btn-detail button,
+.bnt-search button{
+    padding: 5px 25px;
+    background: #1a3e76;
+    border: none;
+    border-radius:50em;
+    color: #dfdfdf;
+    font-size: 100%;
+    margin: 15px 5px 5px 0;
+}
+
+.form-container input, .form-container textarea, .form-container select{
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.form-container p{
+    padding: 5px 0;
+}
+
+.form-container textarea{
+    width: 97%;
+    margin-top: -5px;
+    min-width: 80%;
+    max-width: 97%;
+}
+.form-container label{
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 0;
+}
+
+.form-container h1{
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+
+.btn-form{
+    display: flex;
+}
+.sortie-detail div{
+    padding: 5px 0;
+}
+
+

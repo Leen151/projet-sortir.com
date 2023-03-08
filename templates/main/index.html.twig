@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortir.com{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+    {% if app.user%}
+        <h2 class="msg_hello">Hello {{ app.user.pseudo }} ! <br> Bienvenue sur Sortir.com </h2>
+    {% else %}
+        <h2 class="msg_hello">Hello ! <br> Bienvenue sur Sortir.com </h2>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Sortir.com{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/sortietable.css') }}">
+
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        <link rel="icon" href="{{ asset('images/favicon_sortir.svg') }}">
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+
+        {% block background %}
+        <style>
+            body {
+                background: url("../public/images/background1.png") no-repeat center fixed;
+                background-size: cover;
+            }
+        </style>
+        {% endblock %}
+
+    </head>
+
+    <body>
+    <header>
+        {% include("inc/nav.html.twig") %}
+    </header>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}
+
+        {% endblock %}
+    </body>
+
+
+<footer>
+    <p>&copy; Sortir.com by <a href="#">Elynedev</a> - ENI école informatique - 2022</p>
+
+</footer>
+</html>

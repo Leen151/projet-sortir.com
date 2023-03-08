@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="liste-container">
+
+        <div class="filtres">
+            <h1>Filtrer les sorties</h1>
+
+            <div class="filtre-container">
+                <div class="filtre1" id="filtre1">
+                        {{ form_start(formFiltre) }}
+                        {{ form_row(formFiltre.campus) }}
+                        {{ form_row(formFiltre.motClef) }}
+                        {{ form_row(formFiltre.dateMin) }}
+                        {{ form_row(formFiltre.dateMax) }}
+                </div>
+
+                <div class="check" id="check">
+                    <div class="groupe">
+                        {{ form_widget(formFiltre.participantOrganisateur) }}
+                        {{ form_label(formFiltre.participantOrganisateur) }}
+                    </div>
+                    <div class="groupe">
+                        {{ form_widget(formFiltre.participantInscrit) }}
+                        {{ form_label(formFiltre.participantInscrit) }}
+                    </div>
+                    <div class="groupe">
+                        {{ form_widget(formFiltre.participantNonInscrit) }}
+                        {{ form_label(formFiltre.participantNonInscrit) }}
+                    </div>
+                    <div class="groupe">
+                        {{ form_widget(formFiltre.sortiePassee) }}
+                        {{ form_label(formFiltre.sortiePassee) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="bnt-search">
+                {{ form_row(formFiltre.btnFiltrer) }}
+                {{ form_end(formFiltre) }}
+            </div>
+        </div>
+
+
+
+        <br>
+        <h1>Liste des sorties</h1>
+        <div>&#8986 le {{ "now"|format_datetime(locale='fr') }}</div>
+        {#<div>&#8986 {{ "now"|date('d/m/Y H:i:s') }}</div>#}
+        <div class="table-container">
+            <div class="tableau">
+                <table>
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th class="colonne-responsive">Campus</th>
+                <th>Date et heure</th>
+                <th class="colonne-responsive">Clôture</th>
+                <th>Nb de places</th>
+                <th>Etat</th>
+{#                <th>Inscrit</th>#}
+                <th class="colonne-responsive">Organisateur</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sortie in sorties %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td class="colonne-responsive">{{ sortie.campus.nom}}</td>
+                    <td>{{ sortie.dateHeureDebut | date ('d/m/Y H\\hi')}}</td>
+                    <td class="colonne-responsive">{{ sortie.dateLimiteInscription | date ('d/m/Y') }}</td>
+                    <td>{{ sortie.participants | length }}/{{ sortie.nbInscriptionMax }}</td>
+                    <td >{{ sortie.etat.libelle  }}</td>
+{#                    <td>#}
+{#                        {% if app.user in sortie.participants %}#}
+{#                            <p>x</p>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+                    <td class="colonne-responsive"><a href="{{ path('participant_profil', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                    <td>
+                        <a href="{{ path('sortie_details', {'id': sortie.id}) }}" title="Détails"><img src="{{asset('images/detail.png') }}" alt="S'inscrire"></a>
+
+                        {% if app.user in sortie.participants %}
+                            <a href="{{ path('sortie_desinscriptionparticipant', {'id': sortie.id}) }}" title="Se désinscrire à la sortie"><img src="{{asset('images/coche.png') }}" alt="S'inscrire"></a>
+                        {% elseif sortie.etat.libelle == 'Ouverte'%}
+                            <a href="{{ path('sortie_inscriptionparticipant', {'id': sortie.id}) }}" title="S'inscrire à la sortie"><img src="{{asset('images/decoche.png') }}" alt="S'inscrire"></a>
+                        {% endif %}
+
+                        {# annulation si (sortie créée ou ouverte) et si (organisateur ou admin) #}
+                        {% if ((is_granted("ROLE_ADMIN")) or (sortie.organisateur is same as app.user)) and ((sortie.etat.libelle == 'Ouverte') or (sortie.etat.libelle == 'Clôturée')) %}
+                            <a href="{{ path('sortie_annulation', {'id': sortie.id}) }}" title="annuler la sortie"><img src="{{asset('images/annuler.png') }}" alt="annuler"></a>
+                        {% endif %}
+
+                        {% if (sortie.organisateur is same as app.user) and (sortie.etat.libelle == 'Créée') %}
+                            <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}" title="modifier la sortie"><img src="{{asset('images/modifier.png') }}" alt="Modifier"></a>
+                            <a href="{{ path('sortie_supprimer', {'id': sortie.id}) }}" title="supprimer la sortie"><img src="{{asset('images/supp.png') }}" alt="annuler"></a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+
+        </table>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    Sorties
+{% endblock %}
+
